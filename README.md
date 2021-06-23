@@ -22,8 +22,6 @@ This action can be used to deploy Azure Resource Manager templates at different 
 * `deploymentName`: Specifies the name of the resource group deployment to create.
 * `failOnStdError`: Specify whether to fail the action when std error is not null.
 
-
-
 ## Outputs
 Every template output will be exported as output. 
 
