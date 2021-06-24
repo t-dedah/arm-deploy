@@ -102,7 +102,7 @@
         "tags": "[parameters('resourceTags')]",
         "kind": "app",
         "properties": {
-          "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', '2121')]",
+          "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('appServicePlanName'))]",
           "siteConfig": {
             "linuxFxVersion": "[parameters('linuxFxVersion')]"
           }
