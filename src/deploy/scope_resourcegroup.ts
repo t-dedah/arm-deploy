@@ -68,6 +68,8 @@ export async function DeployResourceGroupScope(azPath: string, resourceGroupName
         // execute the deployment
         core.info("Creating deployment...")
         var deploymentCode = await exec(`"${azPath}" deployment group create ${azDeployParameters} -o json`, [], deployOptions);
+        core.info("deploymentCode: " + deploymentCode)
+        core.error(commandStdErr)
         if (commandStdErr.trim().length !== 0) {
             if (failOnStdError.toLowerCase().trim() == "true") {
                 throw new Error(`Deployment process failed as some lines were written to stderr: ${commandStdErr}`)
