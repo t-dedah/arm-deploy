@@ -3,6 +3,7 @@ import * as assert from 'assert';
 
 // Unit Tests
 export async function runTests() {
+    console.log("EXPECTED_TO: " + process.env.EXPECTED_TO)
     let result = await main()
     if(result)
     {
