@@ -7,6 +7,10 @@ export async function runTests() {
     {
         console.log(result)
     }
+
+    if(process.env.EXPECTED_TO === 'fail'){
+        throw new Error('Expected failure but deployement passed.')
+    }
 }
 
 runTests().catch(e => {
