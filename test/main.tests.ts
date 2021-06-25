@@ -1,4 +1,5 @@
 import { main } from "../src/main";
+import * as core from '@actions/core';
 
 // Unit Tests
 export async function runTests() {
@@ -9,15 +10,14 @@ export async function runTests() {
         }
         return 'pass'
     } catch (e) {
-        console.error(e)
+        core.error(e)
         return 'fail'
     }
 }
 
 runTests().then(outcome => {
-    console.log("OUTCOME: " + outcome)
     if(outcome != process.env.EXPECTED_TO){
-        console.error(`Expected outcome did not meet the real outcome. Expected value: ${process.env.EXPECTED_TO}, actual value: ${outcome}`)
+        core.error(`Expected outcome did not meet the real outcome. Expected value: ${process.env.EXPECTED_TO}, actual value: ${outcome}`)
         process.exit(1)
     }
 })
