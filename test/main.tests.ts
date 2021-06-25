@@ -14,6 +14,7 @@ export async function runTests() {
 }
 
 runTests().then(outcome => {
+    console.log("OUTCOME: " + outcome)
     if(outcome != process.env.EXPECTED_TO){
         throw new Error(`Expected outcome did not meet the real outcome. Expected value: ${process.env.EXPECTED_TO}, actual value: ${outcome}`)
     }
