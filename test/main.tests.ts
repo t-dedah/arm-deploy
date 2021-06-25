@@ -9,6 +9,7 @@ export async function runTests() {
         }
         return 'pass'
     } catch (e) {
+        console.error(e)
         return 'fail'
     }
 }
@@ -16,11 +17,7 @@ export async function runTests() {
 runTests().then(outcome => {
     console.log("OUTCOME: " + outcome)
     if(outcome != process.env.EXPECTED_TO){
-        throw new Error(`Expected outcome did not meet the real outcome. Expected value: ${process.env.EXPECTED_TO}, actual value: ${outcome}`)
-    }
-}).catch(e => {
-    if (process.env.EXPECTED_TO === 'pass') {
-        console.error(e)
+        console.error(`Expected outcome did not meet the real outcome. Expected value: ${process.env.EXPECTED_TO}, actual value: ${outcome}`)
         process.exit(1)
     }
 })
