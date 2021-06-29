@@ -1,11 +1,10 @@
-import { info } from '@actions/core';
+import { getBooleanInput, info, getInput } from '@actions/core';
 import { which } from '@actions/io';
 import { DeployResourceGroupScope } from './deploy/scope_resourcegroup';
 import { exec } from '@actions/exec';
 import { DeployManagementGroupScope } from './deploy/scope_managementgroup';
 import { DeploySubscriptionScope } from './deploy/scope_subscription';
 import { Outputs } from './utils/utils';
-import { getInput,getBooleanInput } from '@actions/core';
 
 // Action Main code
 export async function main(): Promise<Outputs> {
@@ -29,23 +28,6 @@ export async function main(): Promise<Outputs> {
         info("Changing subscription context...")
         await exec(`"${azPath}" account set --subscription ${subscriptionId}`, [], { silent: true })
     }
-    
-    console.log(failOnStdErr)
-    console.log(typeOf(failOnStdErr))
-    
-
-    // Converting string to bool
-//     let failOnStdErrBool: Boolean
-//     switch (failOnStdErr.toLowerCase().trim()) {
-//         case "true":
-//             failOnStdErrBool = true
-//             break
-//         case "false":
-//             failOnStdErrBool = false
-//             break
-//         default:
-//             failOnStdErrBool = true
-//     }
 
     // Run the Deployment
     let result: Outputs = {};
