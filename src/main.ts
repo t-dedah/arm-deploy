@@ -21,7 +21,13 @@ export async function main(): Promise<Outputs> {
     const deploymentName = getInput('deploymentName')
     const parameters = getInput('parameters')
     const managementGroupId = getInput('managementGroupId')
-    const failOnStdErr = getBooleanInput('failOnStdErr') || true
+    let failOnStdErr
+    try {
+        failOnStdErr = getBooleanInput('failOnStdErr')
+    }
+    catch (err) {
+        failOnStdErr = true
+    }
 
     // change the subscription context
     if (scope !== "managementgroup" && subscriptionId !== "") {
