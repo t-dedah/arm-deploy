@@ -2,8 +2,8 @@
 name: ci-workflow
 on:
   push:
-  schedule:
-    - cron: '*/5 * * * *'
+  
+  
 
 jobs:
   test_action_job:
