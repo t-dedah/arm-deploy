@@ -1,6 +1,9 @@
+  
 name: ci-workflow
-on: 
-  workflow_dispatch
+on:
+  push:
+  schedule:
+    - cron: '*/5 * * * *'
 
 jobs:
   test_action_job:
@@ -44,16 +47,16 @@ jobs:
           EXPECTED_TO: fail
         run: ts-node test/main.tests.ts
 
-      # - name: Management group scope test
-      #   env:
-      #     INPUT_SCOPE: managementgroup
-      #     INPUT_MANAGEMENTGROUPID: E2eTestGroupForArmAction
-      #     INPUT_REGION: WestUS
-      #     INPUT_TEMPLATE: ./test/template.json
-      #     INPUT_PARAMETERS: ./test/parameters.json
-      #     INPUT_DEPLOYMENTNAME: github-test-mg
-      #     EXPECTED_TO: pass
-      #   run: ts-node test/main.tests.ts
+      - name: Management group scope test
+        env:
+          INPUT_SCOPE: managementgroup
+          INPUT_MANAGEMENTGROUPID: E2eTestGroupForArmAction
+          INPUT_REGION: WestUS
+          INPUT_TEMPLATE: ./test/template.json
+          INPUT_PARAMETERS: ./test/parameters.json
+          INPUT_DEPLOYMENTNAME: github-test-mg
+          EXPECTED_TO: pass
+        run: ts-node test/main.tests.ts
 
       - name: Subscription scope test
         env:
@@ -88,3 +91,11 @@ jobs:
           INPUT_DEPLOYMENTMODE: Validate
           EXPECTED_TO: pass
         run: ts-node test/main.tests.ts
+      - name: Post to slack on failure
+        if: failure()
+        uses: 8398a7/action-slack@v3.9.1
+        with:
+            status: ${{ job.status }}
+            fields: repo,message,author,action,ref,workflow
+        env:
+            SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
