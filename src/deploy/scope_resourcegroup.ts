@@ -35,8 +35,10 @@ export async function DeployResourceGroupScope(azPath: string, resourceGroupName
         failOnStdErr: false,
         listeners: {
             stderr: (data: BufferSource) => {
+                
                 let error = data.toString();
-                if(error)
+                core.error(error)
+                if(error.length > 0)
                 {
                     commandStdErr = true;
                     core.error(error);
@@ -73,7 +75,7 @@ export async function DeployResourceGroupScope(azPath: string, resourceGroupName
         // execute the deployment
         core.info("Creating deployment...")
         var deploymentCode = await exec(`"${azPath}" deployment group create ${azDeployParameters} -o json`, [], deployOptions);
-        
+        console.log('deployment Code: ' + deploymentCode)
         if (deploymentCode != 0) {
             throw new Error("Deployment failed.")
         }
