@@ -36,7 +36,7 @@ export async function DeployResourceGroupScope(azPath: string, resourceGroupName
         listeners: {
             stderr: (data: BufferSource) => {
                 let error = data.toString();
-                if(error && error.trim().length !== 0)
+                if(error)
                 {
                     commandStdErr = true;
                     core.error(error);
